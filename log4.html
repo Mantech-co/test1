@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Selector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevents scrollbars caused by dots */
+            position: relative;
+            height: 100vh; /* Ensure body takes full height */
+        }
+
+        header {
+            background-color: #1e1e1e;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+
+        select {
+            background-color: #333;
+            border: 1px solid #444;
+            color: #e0e0e0;
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 5px;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #555;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        #videoContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 400px;
+            margin-top: 20px;
+        }
+
+        .videoItem {
+            width: 100%;
+            max-width: 640px;
+        }
+
+        .videoItem iframe {
+            width: 100%;
+            height: 360px;
+            border: none;
+        }
+
+        /* Dots background pattern */
+        .background-dots {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Ensure it's behind all other content */
+            pointer-events: none; /* Prevents interaction with dots */
+        }
+
+        .background-dots::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 20%, transparent 21%);
+            background-size: 50px 50px; /* Change size of dots */
+            background-repeat: repeat;
+            background-position: 0 0;
+        }
+
+        .background-dots::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 20%, transparent 21%);
+            background-size: 30px 30px; /* Adjust size for variety */
+            background-repeat: repeat;
+            background-position: 15px 15px; /* Slightly offset to create random look */
+            opacity: 0.5; /* Semi-transparent for layering effect */
+        }
+    </style>
+</head>
+<body>
+    <div class="background-dots"></div>
+    <header>
+        <h1>Video Selector</h1>
+        <select id="categorySelect" onchange="showCategory(this.value)">
+            <option value="">Select a Category</option>
+            <option value="football">Football</option>
+            <option value="IITM">IITM</option>
+            <option value="JEE">JEE</option>
+            <option value="songs">Songs</option>
+        </select>
+    </header>
+    <main>
+        <div id="videoContainer">
+            <!-- Football Video (Swapped ID) -->
+            <div class="videoItem" id="football" style="display: none;">
+                <iframe src="https://www.youtube.com/embed/L6Fgoz428ps" allowfullscreen></iframe>
+            </div>
+
+            <!-- IITM Video (Swapped ID) -->
+            <div class="videoItem" id="IITM" style="display: none;">
+                <iframe src="https://www.youtube.com/embed/NgyICFV1SRc" allowfullscreen></iframe>
+            </div>
+
+            <!-- JEE Video -->
+            <div class="videoItem" id="JEE" style="display: none;">
+                <iframe src="https://www.youtube.com/embed/t0cf1iRxFzk" allowfullscreen></iframe>
+            </div>
+
+            <!-- Songs Video (Updated ID) -->
+            <div class="videoItem" id="songs" style="display: none;">
+                <iframe src="https://www.youtube.com/embed/I-QfPUz1es8" allowfullscreen></iframe>
+            </div>
+        </div>
+    </main>
+    <script>
+        function showCategory(category) {
+            document.querySelectorAll('.videoItem').forEach(item => {
+                item.style.display = 'none';
+            });
+
+            if (category) {
+                const categoryElement = document.getElementById(category);
+                if (categoryElement) {
+                    categoryElement.style.display = 'block';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
